@@ -16,7 +16,7 @@ async function connectDB() {
         const opts = {
             bufferCommands: false,
         };
-        cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/quiclccart`, opts). then( mongoose => {
+        cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/handcraftedhaven`, opts). then( mongoose => {
             return mongoose;
         });
     }
