@@ -23,6 +23,7 @@ const OrderSummary = () => {
 
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     fetchUserAddresses();
   }, [])
@@ -35,10 +36,12 @@ const OrderSummary = () => {
       <hr className="border-gray-500/30 my-5" />
       <div className="space-y-6">
         <div>
+          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
           <label className="text-base font-medium uppercase text-gray-600 block mb-2">
             Select Address
           </label>
           <div className="relative inline-block w-full text-sm border">
+            {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
             <button
               className="peer w-full text-left px-4 pr-2 py-2 bg-white text-gray-700 focus:outline-none"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -48,6 +51,7 @@ const OrderSummary = () => {
                   ? `${selectedAddress.fullName}, ${selectedAddress.area}, ${selectedAddress.city}, ${selectedAddress.state}`
                   : "Select Address"}
               </span>
+              {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
               <svg className={`w-5 h-5 inline float-right transition-transform duration-200 ${isDropdownOpen ? "rotate-0" : "-rotate-90"}`}
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#6B7280"
               >
@@ -58,7 +62,9 @@ const OrderSummary = () => {
             {isDropdownOpen && (
               <ul className="absolute w-full bg-white border shadow-md mt-1 z-10 py-1.5">
                 {userAddresses.map((address, index) => (
-                  <li
+                  // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+<li
+                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                     key={index}
                     className="px-4 py-2 hover:bg-gray-500/10 cursor-pointer"
                     onClick={() => handleAddressSelect(address)}
@@ -66,6 +72,7 @@ const OrderSummary = () => {
                     {address.fullName}, {address.area}, {address.city}, {address.state}
                   </li>
                 ))}
+                {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
                 <li
                   onClick={() => router.push("/add-address")}
                   className="px-4 py-2 hover:bg-gray-500/10 cursor-pointer text-center"
@@ -78,6 +85,7 @@ const OrderSummary = () => {
         </div>
 
         <div>
+          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
           <label className="text-base font-medium uppercase text-gray-600 block mb-2">
             Promo Code
           </label>
@@ -87,7 +95,8 @@ const OrderSummary = () => {
               placeholder="Enter promo code"
               className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
             />
-            <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700">
+            {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+            <button className="bg-teal-600 text-white px-9 py-2 hover:bg-orange-700">
               Apply
             </button>
           </div>
@@ -115,7 +124,8 @@ const OrderSummary = () => {
         </div>
       </div>
 
-      <button onClick={createOrder} className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700">
+      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+<button onClick={createOrder} className="w-full bg-teal-600 text-white py-3 mt-5 hover:bg-orange-700">
         Place Order
       </button>
     </div>

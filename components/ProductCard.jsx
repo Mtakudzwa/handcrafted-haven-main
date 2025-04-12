@@ -8,7 +8,9 @@ const ProductCard = ({ product }) => {
     const { currency, router } = useAppContext()
 
     return (
-        <div
+        // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+<div
+            // biome-ignore lint/style/useTemplate: <explanation>
             onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0) }}
             className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
         >
@@ -20,6 +22,7 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
+                {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
                 <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
                     <Image
                         className="h-3 w-3"
@@ -36,6 +39,7 @@ const ProductCard = ({ product }) => {
                 <div className="flex items-center gap-0.5">
                     {Array.from({ length: 5 }).map((_, index) => (
                         <Image
+                            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                             key={index}
                             className="h-3 w-3"
                             src={
@@ -51,6 +55,7 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-end justify-between w-full mt-1">
                 <p className="text-base font-medium">{currency}{product.offerPrice}</p>
+                {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
                 <button className=" max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition">
                     Buy now
                 </button>

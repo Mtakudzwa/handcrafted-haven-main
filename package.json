@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.14.1",
+    "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "inngest": "^3.34.4",
     "mongoose": "^8.13.2",
