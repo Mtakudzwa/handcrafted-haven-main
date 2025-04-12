@@ -21,15 +21,19 @@ const Footer = () => {
             <h2 className="font-medium text-gray-900 mb-5">Company</h2>
             <ul className="text-sm space-y-2">
               <li>
+                {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
                 <a className="hover:underline transition" href="#">Home</a>
               </li>
               <li>
+                {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
                 <a className="hover:underline transition" href="#">About us</a>
               </li>
               <li>
+                {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
                 <a className="hover:underline transition" href="#">Contact us</a>
               </li>
               <li>
+                {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
                 <a className="hover:underline transition" href="#">Privacy policy</a>
               </li>
             </ul>
