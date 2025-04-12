@@ -1,6 +1,6 @@
 import { Inngest } from "inngest";
 import connectDB from "./db";
-import { User } from "@/models/User"; // Adjust the import path as necessary
+import  User  from "@/models/User"; // Adjust the import path as necessary
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "quickcart-next" });
@@ -19,8 +19,14 @@ export const syncUserCreation = inngest.createFunction(
       name: `${first_name} ${last_name}`,
       imageUrl: image_url,
     };
+    console.log("Connecting to DB...");
     await connectDB();
+    console.log("Connected to DB");
+    
+    // Add right before create:
+    console.log("Creating user:", userData);
     await User.create(userData);
+    console.log("User created successfully");
   }
 );
 
