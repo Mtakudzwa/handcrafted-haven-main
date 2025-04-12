@@ -8,34 +8,19 @@ export const inngest = new Inngest({ id: "quickcart-next" });
 // Inngest function to save user data to MongoDB
 export const syncUserCreation = inngest.createFunction(
   {
-    id: "sync-user-creation-from-clerk",
+    id: "sync-user-creation-from-clerk", // updated ID
   },
-  { event: "clerk/user.created" },
+  { event: "clerk/user.created" }, 
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } = event.data;
-
     const userData = {
       _id: id,
       email: email_addresses[0].email_address,
       name: `${first_name} ${last_name}`,
       imageUrl: image_url,
     };
-
-    console.log("Connecting to DB...");
     await connectDB();
-    console.log("Connected to DB");
-    console.log("Upserting user:", userData);
-
-    try {
-      await User.findByIdAndUpdate(
-        id,
-        { $set: userData },
-        { upsert: true, new: true }
-      );
-      console.log("✅ User upserted successfully.");
-    } catch (error) {
-      console.error("❌ Error upserting user:", error);
-    }
+    await User.create(userData);
   }
 );
 
