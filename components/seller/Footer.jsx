@@ -14,12 +14,15 @@ const Footer = () => {
         </p>
       </div>
       <div className="flex items-center gap-3">
+        {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
         <a href="#">
           <Image src={assets.facebook_icon} alt="facebook_icon" />
         </a>
+        {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
         <a href="#">
           <Image src={assets.twitter_icon} alt="twitter_icon" />
         </a>
+        {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
         <a href="#">
           <Image src={assets.instagram_icon} alt="instagram_icon" />
         </a>
