@@ -3,7 +3,7 @@ import connectDB from "./db";
 import  User  from "@/models/User"; // Adjust the import path as necessary
 
 // Create a client to send and receive events
-export const inngest = new Inngest({ id: "quickcart-next" });
+export const inngest = new Inngest({ id: "handcrafted-haven" });
 
 // Inngest function to save user data to MongoDB
 export const syncUserCreation = inngest.createFunction(
