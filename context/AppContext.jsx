@@ -13,7 +13,6 @@ export const useAppContext = () => {
 };
 
 export const AppContextProvider = (props) => {
- 
   const currency = process.env.NEXT_PUBLIC_CURRENCY;
   const router = useRouter();
 
@@ -27,15 +26,13 @@ export const AppContextProvider = (props) => {
 
   const fetchProductData = async () => {
     try {
-
-      const { data } = await axios.get("/api/product/list")
+      const { data } = await axios.get("/api/product/list");
 
       if (data.success) {
         setProducts(data.products);
       } else {
         toast.error(data.message);
       }
-
     } catch (error) {
       toast.error(error.message);
     }
@@ -43,25 +40,25 @@ export const AppContextProvider = (props) => {
 
   const fetchUserData = async () => {
     try {
-      
       if (user.publicMetadata.role === "seller") {
         setIsSeller(true);
       }
 
-      const token = await getToken()
-      const {data} = await axios.get("/api/user/data", { headers: { Authorization: `Bearer ${token}` } })
-      
+      const token = await getToken();
+      const { data } = await axios.get("/api/user/data", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       if (data.success) {
         setUserData(data.user);
         setCartItems(data.user.cartItems);
-      }else {
+      } else {
         toast.error(data.message);
       }
-
     } catch (error) {
       toast.error(error.message);
     }
-  }
+  };
 
   const addToCart = async (itemId) => {
     // biome-ignore lint/style/useConst: <explanation>
@@ -72,7 +69,22 @@ export const AppContextProvider = (props) => {
       cartData[itemId] = 1;
     }
     setCartItems(cartData);
-    toast.success("Item added to cart")
+
+    if (user) {
+      try {
+        const token = await getToken();
+
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        toast.success("Item added to cart");
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const updateCartQuantity = async (itemId, quantity) => {
@@ -83,7 +95,22 @@ export const AppContextProvider = (props) => {
     } else {
       cartData[itemId] = quantity;
     }
-    setCartItems(cartData);
+    setCartItems(cartData)
+    if (user) {
+      try {
+        const token = await getToken();
+
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        toast.success("Cart updated successfully");
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -121,14 +148,22 @@ export const AppContextProvider = (props) => {
   }, [user]);
 
   const value = {
-    user,getToken,
-    currency,router,
-    isSeller,setIsSeller,
-    userData,fetchUserData,
-    products,fetchProductData,
-    cartItems,setCartItems,
-    addToCart,updateCartQuantity,
-    getCartCount,getCartAmount,
+    user,
+    getToken,
+    currency,
+    router,
+    isSeller,
+    setIsSeller,
+    userData,
+    fetchUserData,
+    products,
+    fetchProductData,
+    cartItems,
+    setCartItems,
+    addToCart,
+    updateCartQuantity,
+    getCartCount,
+    getCartAmount,
   };
 
   return (
