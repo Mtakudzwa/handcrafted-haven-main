@@ -18,40 +18,46 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
-  
+
     formData.append("name", name);
     formData.append("description", description);
     formData.append("category", category);
     formData.append("price", price);
     formData.append("offerPrice", offerPrice);
-  
+
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
-  
+
     try {
       const token = await getToken();
-  
-        const { data } = await axios.post('/api/product/add', formData, { headers: { Authorization: `Bearer ${token}` } });
-  
+
+      const { data } = await axios.post("/api/product/add", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       if (data.success) {
         toast.success(data.message);
         setFiles([]);
         setName("");
         setDescription("");
-        setCategory("Accessories");
+        setCategory("Select ");
         setPrice("");
-        setOfferPrice("");  
+        setOfferPrice("");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || error.message || "Something went wrong"); // <-- fixed
+      console.error(error);
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "Something went wrong"
+      );
     }
   };
-  
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
@@ -122,7 +128,7 @@ const AddProduct = () => {
           ></textarea>
         </div>
         <div className="flex items-center gap-5 flex-wrap">
-          <div className="flex flex-col gap-1 w-32">
+          <div className="flex flex-col gap-1 w-40">
             <label className="text-base font-medium" htmlFor="category">
               Category
             </label>
@@ -132,13 +138,35 @@ const AddProduct = () => {
               onChange={(e) => setCategory(e.target.value)}
               defaultValue={category}
             >
-              <option value="Earphone">Earphone</option>
-              <option value="Headphone">Headphone</option>
-              <option value="Watch">Watch</option>
-              <option value="Smartphone">Smartphone</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Camera">Camera</option>
-              <option value="Accessories">Accessories</option>
+              <option value="Jewelry">Jewelry</option>
+              <option value="Home Decor">Home Decor</option>
+              <option value="Woodwork">Woodwork</option>
+              <option value="Ceramics">Ceramics</option>
+              <option value="Textiles">Textiles</option>
+              <option value="Leather Goods">Leather Goods</option>
+              <option value="Bags & Purses">Bags & Purses</option>
+              <option value="Candles">Candles</option>
+              <option value="Bath & Beauty">Bath & Beauty</option>
+              <option value="Toys & Dolls">Toys & Dolls</option>
+              <option value="Pet Accessories">Pet Accessories</option>
+              <option value="Art & Paintings">Art & Paintings</option>
+              <option value="Stationery">Stationery</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Footwear">Footwear</option>
+              <option value="Knitted & Crocheted Items">
+                Knitted & Crocheted Items
+              </option>
+              <option value="Glassware">Glassware</option>
+              <option value="Upcycled Products">Upcycled Products</option>
+              <option value="Embroidery">Embroidery</option>
+              <option value="Metal Crafts">Metal Crafts</option>
+              <option value="Paper Crafts">Paper Crafts</option>
+              <option value="Holiday Decorations">Holiday Decorations</option>
+              <option value="Woven Baskets">Woven Baskets</option>
+              <option value="Planters & Pots">Planters & Pots</option>
+              <option value="Digital Art Prints">Digital Art Prints</option>
+              <option value="Macramé">Macramé</option>
+              <option value="Furniture">Furniture</option>
             </select>
           </div>
           <div className="flex flex-col gap-1 w-32">

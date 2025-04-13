@@ -2,6 +2,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import { getAuth } from '@clerk/nextjs/server';
 import authSeller from '@/lib/authSeller';
 import { NextResponse } from 'next/server';
+import Product from '@/models/Products';
+import connectDB from '@/config/db';
 
 //configure cloudinary
 cloudinary.config({
@@ -14,7 +16,7 @@ cloudinary.config({
 export async function POST(request) {
     try {
 
-        const { userId } = getAuth()
+        const { userId } = getAuth(request)
 
         const isSeller = await authSeller(userId)
 
@@ -28,10 +30,9 @@ export async function POST(request) {
         const description = formData.get("description");
         const category = formData.get("category");
         const price = formData.get("price");
-        const offPrice = formData.get("offPrice");
+        const offerPrice = formData.get("offerPrice");
 
-
-        const files = formData.getAll("Images");
+        const files = formData.getAll("images");
 
         if (!files || files.length === 0) {
             return NextResponse.json({ success: false, message: "Please upload at least one image" })
@@ -42,7 +43,7 @@ export async function POST(request) {
                 const arrayBuffer = await file.arrayBuffer()
                 const buffer = Buffer.from(arrayBuffer)
 
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve,reject) => {
                     const stream = cloudinary.uploader.upload_stream(
                         { resource_type: 'auto' },
 
@@ -50,7 +51,7 @@ export async function POST(request) {
                             if (error) {
                                 reject(error)
                             } else {
-                                resolve(result.secure_url)
+                                resolve(result)
                             }
                         }
 
@@ -60,17 +61,17 @@ export async function POST(request) {
             })
         )
         
-        const images = result.map(result => result.secure_url)
+        const image = result.map(result => result.secure_url)
 
         await connectDB()
-        const newProduct = new Product.create({
+        const newProduct = await Product.create({
             userId,
             name,
             description,
             category,
             price: Number(price),
-            offerPrice: Number(offPrice),
-            images,
+            offerPrice: Number(offerPrice),
+            image,
             Date: Date.now()
         })
 
