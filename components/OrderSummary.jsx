@@ -96,7 +96,7 @@ const OrderSummary = () => {
               className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
             />
             {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-            <button className="bg-teal-600 text-white px-9 py-2 hover:bg-orange-700">
+            <button className="bg-teal-600 text-white px-9 py-2 hover:bg-teal-700">
               Apply
             </button>
           </div>
@@ -125,7 +125,7 @@ const OrderSummary = () => {
       </div>
 
       {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-<button onClick={createOrder} className="w-full bg-teal-600 text-white py-3 mt-5 hover:bg-orange-700">
+<button onClick={createOrder} className="w-full bg-teal-600 text-white py-3 mt-5 hover:bg-teal-700">
         Place Order
       </button>
     </div>
