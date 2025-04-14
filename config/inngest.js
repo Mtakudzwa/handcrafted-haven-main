@@ -1,6 +1,6 @@
 import { Inngest } from "inngest";
 import connectDB from "./db";
-import  User  from "@/models/User"; // Adjust the import path as necessary
+import  User  from "@/models/User"; 
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "handcrafted-haven" });
@@ -55,6 +55,8 @@ export const syncUserDeletion = inngest.createFunction(
   }
 );
 
+
+// Inngest function to create user order in MongoDB
 export const createUserOrder = inngest.createFunction(
   {
     id: "create-user-order",
@@ -63,23 +65,20 @@ export const createUserOrder = inngest.createFunction(
       timeout: "5s"
     }
   },
-  {event: "order/created"},
-  async ({ event }) => {
-    const orders = event.map((event) => {
-      return{
-        userId: event.data.userId,
-        items: event.data.items,
-        amount: event.data.amount,
-        address: event.data.address,
-        status: event.data.status,
-        date: event.data.date
-      }
-    })
+  { event: "order/created" },
+  async ({ events }) => {  // <-- Note: `events` instead of `event`
+    const orders = events.map((event) => ({
+      userId: event.data.userId,
+      items: event.data.items,
+      amount: event.data.amount,
+      address: event.data.address,
+      status: event.data.status,
+      date: event.data.date
+    }));
 
-    await connectDB()
-    await Order.insertMany(orders)
+    await connectDB();
+    await Order.insertMany(orders);
 
-    return {success: true, processed: orders.length};
-
+    return { success: true, processed: orders.length };
   }
 )
