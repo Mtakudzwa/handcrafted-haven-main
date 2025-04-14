@@ -4,7 +4,6 @@ import Product from '@/models/Products';
 import { inngest } from '@/config/inngest';
 import User from '@/models/User';
 
-
 export async function POST(request) {
     try {
 
