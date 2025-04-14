@@ -67,7 +67,11 @@ export const createUserOrder = inngest.createFunction(
     }
   },
   { event: "order/created" },
-  async ({ events }) => {  // <-- Note: `events` instead of `event`
+  async ({ events }) => {
+
+    await connectDB();
+
+    // Map to orders
     const orders = events.map((event) => ({
       userId: event.data.userId,
       items: event.data.items,
@@ -77,9 +81,27 @@ export const createUserOrder = inngest.createFunction(
       date: event.data.date
     }));
 
-    await connectDB();
-    await Order.insertMany(orders);
+    // Validate orders: only keep ones with required fields
+    const validOrders = orders.filter(order => 
+      order.userId && order.amount !== undefined && order.amount !== null
+    );
 
-    return { success: true, processed: orders.length };
+    // Log invalid ones for debugging
+    const invalidOrders = orders.filter(order => 
+      order.amount === undefined || order.amount === null
+    );
+    if (invalidOrders.length > 0) {
+      console.warn(`Skipped ${invalidOrders.length} orders missing 'amount':`, invalidOrders);
+    }
+
+    // If no valid orders, exit gracefully
+    if (validOrders.length === 0) {
+      return { success: false, processed: 0, reason: "No valid orders found." };
+    }
+
+    // Insert valid orders
+    await Order.insertMany(validOrders);
+
+    return { success: true, processed: validOrders.length };
   }
-)
+);
