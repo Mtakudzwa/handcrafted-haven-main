@@ -6,20 +6,20 @@ const products = [
   {
     id: 1,
     image: assets.girl_with_headphone_image,
-    title: "Unparalleled Sound",
-    description: "Experience crystal-clear audio with premium headphones.",
+    title: "Artisan's Touch",
+    description: "Skilled hands weave intricate patterns with indigo threads, blending tradition and modern minimalism in a serene studio. Every thread tells a story of dedication and artistry.",
   },
   {
     id: 2,
     image: assets.girl_with_earphone_image,
-    title: "Stay Connected",
-    description: "Compact and stylish earphones for every occasion.",
+    title: "Masterful Craftsmanship",
+    description: "Discover the beauty of tradition through skilled hands weaving intricate designs on a wooden loom, where natural fibers and indigo threads come together to create timeless artistry.",
   },
   {
     id: 3,
     image: assets.boy_with_laptop_image,
-    title: "Power in Every Pixel",
-    description: "Shop the latest laptops for work, gaming, and more.",
+    title: "Timeless Craft",
+    description: "Sunlight illuminates the art of pottery as a skilled potter shapes wet clay on a wooden wheel. Surrounded by finished vessels, the workshop captures the essence of craftsmanship and tradition.",
   },
 ];
 

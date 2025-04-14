@@ -12,14 +12,14 @@ const Banner = () => {
       />
       <div className="flex flex-col items-center justify-center text-center space-y-2 px-4 md:px-0">
         <h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
-          Level Up Your Gaming Experience
+        Discover Unique Handmade Creations
         </h2>
         <p className="max-w-[343px] font-medium text-gray-800/60">
-          From immersive sound to precise controls—everything you need to win
+        Connect with passionate artisans and shop <br />one-of-a-kind<br /> pieces crafted with heart.
         </p>
         {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
         <button className="group flex items-center justify-center gap-1 px-12 py-2.5 bg-teal-600 rounded text-white">
-          Buy now
+        Explore Now
           <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon_white} alt="arrow_icon_white" />
         </button>
       </div>
@@ -30,7 +30,7 @@ const Banner = () => {
       />
       <Image
         className="md:hidden"
-        src={assets.sm_controller_image}
+        src={assets.md_controller_image}
         alt="sm_controller_image"
       />
     </div>

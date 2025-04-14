@@ -1,27 +1,45 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { assets, orderDummyData } from "@/assets/assets";
+import { assets,  } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/Loading";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const MyOrders = () => {
 
-    const { currency } = useAppContext();
+    const { currency, getToken, user } = useAppContext();
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchOrders = async () => {
-        setOrders(orderDummyData)
-        setLoading(false);
+    try {
+        
+        const token = await getToken()
+
+        const { data } = await axios.get("/api/order/list", {headers: {Authorization: `Bearer ${token}`}})
+        if (data.success) {
+            setOrders(data.orders.reverse())
+            setLoading(false)
+        } else {
+            toast.error(data.message);
+        }
+
+    } catch (error) {
+        toast.error(error.message);
+    }    
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
+        if (user){
         fetchOrders();
-    }, []);
+    }
+    }, [user]);
 
     return (
         <>
@@ -31,7 +49,8 @@ const MyOrders = () => {
                     <h2 className="text-lg font-medium mt-6">My Orders</h2>
                     {loading ? <Loading /> : (<div className="max-w-5xl border-t border-gray-300 text-sm">
                         {orders.map((order, index) => (
-                            <div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300">
+                            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300">
                                 <div className="flex-1 flex gap-5 max-w-80">
                                     <Image
                                         className="max-w-16 max-h-16 object-cover"
@@ -40,6 +59,7 @@ const MyOrders = () => {
                                     />
                                     <p className="flex flex-col gap-3">
                                         <span className="font-medium text-base">
+                                            {/* biome-ignore lint/style/useTemplate: <explanation> */}
                                             {order.items.map((item) => item.product.name + ` x ${item.quantity}`).join(", ")}
                                         </span>
                                         <span>Items : {order.items.length}</span>

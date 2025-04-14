@@ -5,22 +5,42 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 const Orders = () => {
 
-    const { currency } = useAppContext();
+    const { currency, getToken, user } = useAppContext();
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchSellerOrders = async () => {
-        setOrders(orderDummyData);
+        try {
+            
+            const token = await getToken()
+
+            const { data } = await axios.get("/api/order/seller-orders", {headers: {Authorization: `Bearer ${token}`}})
+            if (data.success) {
+                setOrders(data.orders)
+                setLoading(false)
+            } else {
+                toast.error(data.message);
+            }
+
+        } catch (error) {
+            toast.error(error.message);
+        }
         setLoading(false);
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
-        fetchSellerOrders();
-    }, []);
+        if (user) {
+            fetchSellerOrders();
+        }
+    }, [user]);
 
     return (
         <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
@@ -28,7 +48,8 @@ const Orders = () => {
                 <h2 className="text-lg font-medium">Orders</h2>
                 <div className="max-w-4xl rounded-md">
                     {orders.map((order, index) => (
-                        <div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300">
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300">
                             <div className="flex-1 flex gap-5 max-w-80">
                                 <Image
                                     className="max-w-16 max-h-16 object-cover"
@@ -37,6 +58,7 @@ const Orders = () => {
                                 />
                                 <p className="flex flex-col gap-3">
                                     <span className="font-medium">
+                                        {/* biome-ignore lint/style/useTemplate: <explanation> */}
                                         {order.items.map((item) => item.product.name + ` x ${item.quantity}`).join(", ")}
                                     </span>
                                     <span>Items : {order.items.length}</span>

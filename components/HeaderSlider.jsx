@@ -6,29 +6,30 @@ const HeaderSlider = () => {
   const sliderData = [
     {
       id: 1,
-      title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
-      offer: "Limited Time Offer 30% Off",
+      title: "Timeless Writing Companion – Handcrafted Black Leather Journal",
+      offer: "Embrace the Art of Writing – Now 30% Off",
       buttonText1: "Buy now",
       buttonText2: "Find more",
-      imgSrc: assets.header_headphone_image,
+      imgSrc: assets.header_headphone_image, // black leather journal
     },
     {
       id: 2,
-      title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
-      offer: "Hurry up only few lefts!",
+      title: "Rustic Beauty – Hand-Spun Clay Pot for Your Home",
+      offer: "Limited Pieces Available – Grab Yours Today!",
       buttonText1: "Shop Now",
       buttonText2: "Explore Deals",
-      imgSrc: assets.header_playstation_image,
+      imgSrc: assets.header_playstation_image, // clay pot
     },
     {
       id: 3,
-      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-      offer: "Exclusive Deal 40% Off",
+      title: "Nature-Inspired Comfort – Log Frame Chair, Crafted to Last",
+      offer: "Exclusive Offer – 40% Off This Week Only",
       buttonText1: "Order Now",
       buttonText2: "Learn More",
-      imgSrc: assets.header_macbook_image,
+      imgSrc: assets.header_macbook_image, // log made chair
     },
   ];
+  
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
