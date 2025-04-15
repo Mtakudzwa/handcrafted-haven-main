@@ -4,7 +4,7 @@
 **Live Demo**: [https://handcrafted-haven-main.vercel.app](https://handcrafted-haven-main.vercel.app)  
 **GitHub Repository**: [https://github.com/Mtakudzwa/handcrafted-haven-main](https://github.com/Mtakudzwa/handcrafted-haven-main)  
 **Project Board**: [https://github.com/Mtakudzwa/handcrafted-haven-main/projects/1](https://github.com/Mtakudzwa/handcrafted-haven-main/projects/1)  
-**Demo Video**: [https://youtu.be/demo-video-url](https://youtu.be/demo-video-url)
+**Demo Video**: [https://youtu.be/meIA9g_rxWI](https://youtu.be/meIA9g_rxWI)
 
 ---
 
@@ -155,7 +155,7 @@ CLOUDINARY_API_SECRET='*********************************************************
 ## 📹 Demo Video
 
 Watch the full 7-minute demo and walkthrough here:  
-🎥 [https://youtu.be/demo-video-url](https://youtu.be/demo-video-url)
+🎥 [https://youtu.be/meIA9g_rxWI](https://youtu.be/meIA9g_rxWI)
 
 ---
 
@@ -165,11 +165,4 @@ This project was an excellent challenge in solo full-stack development.
 To simulate a group dynamic, I utilized GitHub Projects and scoped the work into iterative modules, handling design, development, and deployment independently.  
 The process strengthened my understanding of system design, RESTful APIs, secure authentication, and user-centered UI/UX.
 
----
-
-## 📫 Contact
-
-For feedback or collaboration, reach out at:  
-**Email:** takudzwa.mutamburigwa@gmail.com  
-**Portfolio:** [https://yourportfolio.dev](https://yourportfolio.dev)
 ---
